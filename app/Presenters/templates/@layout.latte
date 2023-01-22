@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title n:snippet="title">{ifset title}{include title|stripHtml} | {/ifset}Carrier zakázky</title>
+	<link rel="stylesheet" href="{$basePath}/css/style.css">
+	<link rel="stylesheet" href="{$basePath}/bootstrap/bootstrap/css/bootstrap.css">
+</head>
+
+<body>
+	<nav class="nav-menu">
+		<div class="nav-items">
+			<ul class="nav-left-menu">
+				<li>
+					<a n:class="$presenter->isLinkCurrent('Homepage:default') ? 'active'" n:href="Homepage:default">Nová zakázka<span class="sr-only">(current)</span></a>
+				</li>
+				<li>
+					<a n:class="$presenter->isLinkCurrent('TubeProduction:production') ? 'active'" n:href="TubeProduction:production">Vyrobeno</a>
+				</li>
+				<li>
+					<a n:class="$presenter->isLinkCurrent('CreateExcess:createExcess') ? 'active'" n:href="CreateExcess:createExcess">Materiál navíc</a>
+				</li>
+				<li>
+					<a n:class="$presenter->isLinkCurrent('Sign:up') ? 'active'" n:if="$user->isAllowed('register', 'view')" n:href="Sign:up">Registrovat</a>
+				</li>
+				<li>
+					{if $user->loggedIn}
+						<a n:href="Sign:out">Odhlásit</a>
+					{else}
+						<a n:class="$presenter->isLinkCurrent('Sign:in') ? 'active'" n:href="Sign:in">Přihlásit</a>
+					{/if}
+				</li>
+			</ul>
+			<ul class="nav-user-values">
+				<li>
+					{if $user->loggedIn}
+						<div class="nav-user-name"> {$user->getIdentity()->getData()[name]}</div>
+					{/if}
+				</li>
+				<li>
+					{if $user->loggedIn}
+						<div class="navbar-text"> {$user->getIdentity()->getData()[shift_id]} </div>
+					{/if}
+				</li>
+			</ul>
+			<form n:name="searchForm" class="nav-form">
+				<select class="form-control mr-1" n:name="search_select">SELECT</select>
+				<input class="form-control mr-sm-2" type="text" n:name="search_value" placeholder="Číslo zakázky" aria-label="Search">
+				<input class="btn btn-outline-light my-2 my-sm-0" n:name="send" value="Vyhledat">
+			</form>
+		</div>
+		<div class="hamburger">
+			<span class="bar"></span>
+			<span class="bar"></span>
+			<span class="bar"></span>
+		</div>
+	</nav>
+
+{snippet modal}
+	{if $presenter->isAjax()}
+		{ifset #modal}
+			<div class="modal fade modal-ajax" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true" data-bs-keyboard="false">
+				<div class="modal-dialog modal-xl">
+					<div class="modal-content">
+						<div class="modal-body">
+							{include #modal}
+						</div>
+						{ifset #modalFooter}
+							<div class="modal-footer">
+								{include #modalFooter}
+							</div>
+						{/ifset}
+					</div>
+				</div>
+			</div>
+		{/ifset}
+	{/if}
+{/snippet}
+	<div class="content">
+		{include content}
+	</div>
+
+	{block scripts}
+		<script src="{$basePath}/js/HamburgerMenu/hamburger.js"></script>
+		<script src="{$basePath}/js/bootstrap/bootstrap.bundle.min.js"></script>
+		<script src="{$basePath}/js/Ajax/jquery.min.js"></script>
+		<script src="{$basePath}/js/nette.ajax.js-master/nette.ajax.js"></script>
+		<script src="{$basePath}/js/Main/main.js"></script>
+		<script src="{$basePath}/js/HomeForm/form.js"></script>
+		<script src="{$basePath}/js/Excess/updateExcess.js"></script>
+		<script src="{$basePath}/js/Excess/showExcess.js"></script>
+		<script src="{$basePath}/js/NetteForms/netteForms.min.js"></script>
+	{/block}
+</body>
+</html>

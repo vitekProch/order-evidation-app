@@ -1,0 +1,12 @@
+{block content}
+{if $user->loggedIn}
+    <div class="alert-error">Již jste přihlášený</div>
+        <div class="text-center">
+            <a class="btn btn-outline-dark" n:href="Homepage:">Vytvořit zakázku</a>
+            <a class="btn btn-outline-dark" n:href="Sign:out">Odhlásit se</a>
+        </div>
+
+{else}
+    <h1 class="text-center title_margin" n:block=title>Přihlášení</h1>
+    {include "../@form.latte", name: signInForm}
+{/if}

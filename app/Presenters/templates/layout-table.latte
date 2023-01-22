@@ -1,0 +1,34 @@
+<table class="content-table">
+    <thead>
+        <tr>
+            <th>Číslo materiálu</th>
+            <th>Jméno Pracovníka</th>
+            <th>Průměr Ø </th>
+            <th>Počet kusů</th>
+            <th>Datum</th>
+            <th>Směna</th>
+            <th>Číslo zakázky</th>
+            <th>Počet navíc</th>
+            <th>Upravit</th>
+            <th>Smazat</th>
+        </tr>
+    </thead>
+    <tbody>
+        {foreach $table_values as $production}
+            <tr>
+                <td>{$production['material_id']}</td>
+                <td>{$production['name']}</td>
+                <td>{$production['diameter']}</td>
+                <td>{$production['made_quantity']}</td>
+                <td>{$production['create_date']}</td>
+                <td>{$production['shift_name']}</td>
+                <td>{$production['order_id']}</td>
+                <td>{$production['excess_quantity']}</td>
+                {if $user->loggedIn AND $production['employee_id'] == $user->id}
+                    <td><a class="btn btn-success btn-sm" n:href="TubeProduction:edit $production['id']">Upravit</a></td>
+                    <td><a class="btn btn-danger btn-sm" n:href="delete!, id => $production['id']" onClick="return confirm('Opravdu smazat?');">Smazat</a></td>
+                {/if}
+            </tr>
+        {/foreach}
+    </tbody>
+</table>

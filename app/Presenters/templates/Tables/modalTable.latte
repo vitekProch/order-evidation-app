@@ -1,0 +1,46 @@
+{block content}
+<table class="content-table">
+    <thead>
+    <tr>
+        <th>Číslo materiálu</th>
+        <th>Jméno Pracovníka</th>
+        <th>Průměr Ø</th>
+        <th>Počet kusů</th>
+        <th>Datum</th>
+        <th>Směna</th>
+        <th>Číslo zakázky</th>
+        {if $user->loggedIn}
+            <th>Upravit</th>
+            <th>Smazat</th>
+        {/if}
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $modal_data as $order}
+        <tr>
+            <td>{$order['material_id']}</td>
+            <td>{$order['name']}</td>
+            <td>{$order['diameter']}</td>
+            <td class="excess_quantity">
+                <div>
+                    {$order['made_quantity']}
+                </div>
+                {if $order['excess_quantity'] > 0}
+                    <div title="Kusy navíc" class="col text-center">
+                        ({$order['excess_quantity']})
+                    </div>
+                {/if}
+            </td>
+            <td>{$order['create_date']}</td>
+            <td>{$order['shift_name']}</td>
+            {if isset ($order['order_id'])}
+                <td>{$order['order_id']}</td>
+            {/if}
+                    {if $user->loggedIn AND $order['employee_id'] == $user->id}
+                <td><a class="btn btn-success btn-sm" href="{$basePath}/tube-production/edit/{$order['id']}">Upravit</a></td>
+                <td><a class="btn btn-danger btn-sm" n:href="delete!, id => $order['id']" onClick="return confirm('Opravdu smazat?');">Smazat</a></td>
+            {/if}
+        </tr>
+    {/foreach}
+    </tbody>
+</table>

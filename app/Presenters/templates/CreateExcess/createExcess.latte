@@ -1,0 +1,108 @@
+﻿{block content}
+<div class="excess-container">
+        <h1 class="text-center" n:block=title>Materiál navíc</h1>
+    <form n:name=excessForm>
+        <table class="m-auto table_background">
+            <tr>
+                <th class="text-right pr-2"><label n:name=material_id>Číslo materiálu navíc:  </label></th>
+                <td><input id="idExcess" class="form-control" n:name=material_id></td>
+            </tr>
+            <tr>
+                <th class="text-right pr-2"><label n:name=quantity>Počet navíc:  </label></th>
+                <td><input id="quantityExcess" class="form-control" n:name=quantity></td>
+            </tr>
+            <tr>
+                <th class="text-right pr-2"><label n:name=diameters>Průměr:  </label></th>
+                <td><select class="form-control" n:name=diameters></select></td>
+            </tr>
+            <tr>
+                <th>
+
+                </th>
+                <td>
+                    <input n:name=save class="btn btn-outline-dark">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <table class="content-table">
+        <thead>
+            <tr>
+                <th scope="col">Číslo materiálu navíc</th>
+                <th scope="col">Počet kusů navíc</th>
+                <th scope="col">Průměr Ø</th>
+                <th scope="col">Upravit</th>
+                <th scope="col">Smazat</th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach $getExcess as $Excess}
+                <tr>
+                    <th scope="row">{$Excess->material_id}</th>
+                    <td>{$Excess->quantity}</td>
+                    <td>{$Excess->diameter}</td>
+                    <td><a n:href="edit!,$Excess->material_id" class="ajax btn btn-success btn-sm" title="editovat"><i class="fa fa-balance-scale fa-lg"></i>Upravit</a></td>
+
+                    <td><a class="btn btn-danger btn-sm" n:href="delete!, id => $Excess->material_id" onClick="return confirm('Opravdu smazat?');">Smazat</a></td>
+                </tr>
+            {/foreach}
+        </tbody>
+    </table>
+</div>
+{snippet modal}
+	{if $presenter->isAjax()}
+		{ifset #modal}
+			<div class="modal fade modal-ajax" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+
+							{block modalHeader}
+							<h3 class="modal-title float-left">
+								{block|striptags}{include #modalTitle}{/block}
+							</h3>
+							{/block}
+						</div>
+						<div class="modal-body">
+							{include #modal}
+						</div>
+						{ifset #modalFooter}
+							<div class="modal-footer">
+								{include #modalFooter}
+							</div>
+						{/ifset}
+					</div>
+				</div>
+		    </div>
+		{/ifset}
+	{/if}
+{/snippet}
+
+{define modalTitle}Editovat položku{/define}
+
+{define modal}
+    <form n:name=excessEditForm>
+        <table class="m-auto table_background">
+            <tr>
+                <th class="text-right pr-2"><label n:name=material_id>Číslo materiálu:  </label></th>
+                <td><input id="quantityExcess" class="form-control" n:name=material_id></td>
+            </tr>
+            <tr>
+                <th class="text-right pr-2"><label n:name=quantity>Počet kusů:  </label></th>
+                <td><input id="quantityExcess" class="form-control" n:name=quantity></td>
+            </tr>
+            <tr>
+                <th class="text-right pr-2"><label n:name=diameter_id>Průměr:  </label></th>
+                <td><select class="form-control" n:name=diameter_id></select></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <input n:name=ok class="btn btn-outline-dark mt-2">
+                    <button type="button" class="btn btn-secondary mt-2" n:href="CreateExcess:createExcess" data-bs-dismiss="modal">Zavřít</button>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+   </form>
+{/define}

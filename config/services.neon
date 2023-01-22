@@ -1,0 +1,31 @@
+services:
+	- App\Router\RouterFactory::createRouter
+
+	- App\Forms\FormFactory
+	- App\Forms\ExcessFormFactory
+	- App\Forms\ExcessEditFormFactory
+	- App\Forms\OrderFormFactory
+	- App\Forms\SearchFormFactory
+	- App\Forms\ProductionEditFormFactory
+	- App\Forms\SignUpFormFactory
+	- App\Forms\SignInFormFactory
+
+	- App\Repository\BaseRepository
+	- App\Repository\TubeProductionRepository
+	- App\Repository\EmployeeRepository
+	- App\Repository\TubeDiameterRepository
+	- App\Repository\TubeExcessRepository
+	- App\Repository\ShiftRepository
+
+	- App\Model\EmployeeModel
+	- App\Model\Facades\UserManager
+	- App\Model\TubeProductionModel
+	- App\Model\TubeDiameterModel
+	- App\Model\TubeExcessModel
+	- App\Model\SignModel
+	- App\Model\ShiftModel
+
+	- App\Model\AuthorizationFactory
+	-
+	    class: Nette\Security\Permission
+	    factory: @App\Model\AuthorizationFactory::create

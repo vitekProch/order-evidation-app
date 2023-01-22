@@ -1,0 +1,76 @@
+{block content}
+<table class="content-table">
+    <thead>
+    <tr>
+        <th>Číslo materiálu</th>
+        <th>Jméno Pracovníka</th>
+        <th>Průměr Ø</th>
+        <th>Počet kusů</th>
+        <th>Datum</th>
+        <th>Směna</th>
+        <th>Číslo zakázky</th>
+        {if $user->loggedIn}
+            <th>Upravit</th>
+            <th>Smazat</th>
+        {/if}
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $tube_production[0] as $i => $production}
+        {do $i += 1}
+        <tr>
+            <td>{$production['material_id']}</td>
+            <td>{$production['name']}</td>
+            <td>{$production['diameter']}</td>
+
+            {if isset($tube_production[1][$i])}
+                {var $sum_quantity = 0}
+                {var $sum_excess_quantity = 0}
+                {foreach $tube_production[1][$i] as $order}
+                    {do $sum_quantity += $order['made_quantity']}
+                    {do $sum_excess_quantity += $order['excess_quantity']}
+                {/foreach}
+                {do $sum_quantity += $production['made_quantity']}
+                {do $sum_excess_quantity += $production['excess_quantity']}
+                <td class="excess_quantity">
+                    <div>
+                        {$sum_quantity}
+                    </div>
+                    {if 0 < $sum_excess_quantity}
+                        <div title="Kusy navíc">
+                            ({$sum_excess_quantity})
+                        </div>
+                    {/if}
+                </td>
+            {else}
+                <td class="excess_quantity">
+                    <div>
+                        {$production['made_quantity']}
+                    </div>
+                    {if 0 < $production['excess_quantity']}
+                        <div title="Kusy navíc">
+                            ({$production['excess_quantity']})
+                        </div>
+                    {/if}
+                </td>
+            {/if}
+            <td>{$production['create_date']}</td>
+            <td>{$production['shift_name']}</td>
+             {if isset($tube_production[1][$i])}
+                    {do array_unshift($tube_production[1][$i], $production)}
+                    <td><a n:href="show!, $tube_production[1][$i]" class="ajax btn btn-outline-info">Více</a></td>
+                {if $user->loggedIn}
+                    <td></td>
+                    <td></td>
+                {/if}
+            {else}
+                <td>{$production['order_id']}</td>
+                {if $user->loggedIn AND $production['employee_id'] == $user->id}
+                    <td><a class="btn btn-success btn-sm" n:href="TubeProduction:edit, $production['id'], $position">Upravit</a></td>
+                    <td><a class="btn btn-danger btn-sm" n:href="delete!, id => $production['id']" onClick="return confirm('Opravdu smazat?');">Smazat</a></td>
+                {/if}
+            {/if}
+        </tr>
+    {/foreach}
+    </tbody>
+</table>

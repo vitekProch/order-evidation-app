@@ -1,0 +1,216 @@
+/* ------------ CONTENT ------------ */
+.content{
+    margin-top: 100px;
+}
+
+
+/* ------------ ALERT ------------ */
+.alert-error,.error{
+    position: relative;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    color: #492424;
+    background-color: #ea8989;
+    text-align: center;
+}
+
+/* ------------ NAVIGATION ------------ */
+.nav-menu{
+    z-index: 1030;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top:0;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #003399;
+    padding: 0 35px;
+    height: 63px;
+}
+.nav-items{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav-items ul{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-items ul li a.active{
+    border-bottom: 2px solid white;
+    cursor: default;
+}
+.nav-items ul li a:hover{
+    border-bottom: 2px solid white;
+}
+.nav-items ul li a{
+    padding: 10px 0;
+    color: #ffffff;
+    text-decoration: none;
+}
+.nav-items .nav-user-values{
+    display: flex;
+    gap: 20px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 18px;
+    flex-wrap: wrap;
+}
+.nav-form{
+    display: flex;
+}
+
+.hamburger{
+    display: none;
+    cursor: pointer;
+}
+.bar{
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    background-color: #ffffff;
+}
+
+/* ------------ SCREEN CHANGE ------------ */
+@media (max-width:1300px) {
+    .hamburger{
+        display: block;
+        overflow: hidden;
+    }
+    .hamburger.active .bar:nth-child(2){
+        transform: translateX(60px);
+        transition: 0.9s;
+    }
+    .hamburger.active .bar:nth-child(1){
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.active .bar:nth-child(3){
+        transform: translateY(-8px) rotate(-45deg);
+    }
+    .nav-menu{
+        align-items: center;
+        justify-content: end;
+    }
+    .nav-items{
+        position: fixed;
+        left: -100%;
+        top: 60px;
+        gap: 0;
+        flex-direction: column;
+        background-color: #003399;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+    }
+    .nav-items .nav-left-menu{
+        flex-direction: column;
+        font-size: 25px;
+        gap: 30px;
+        margin-top: 20px;
+    }
+    .nav-items .nav-user-values{
+        display: none;
+    }
+    .nav-items .nav-form{
+        margin: 20px;
+        flex-direction: column;
+        align-items: start;
+        gap: 5px;
+    }
+    .nav-items.active{
+        left: 0;
+    }
+}
+
+/* ------------ TABLE ------------ */
+.content-table{
+    max-width: 100%;
+    text-align: center;
+    font-size: 16px;
+    border-collapse: collapse;
+    margin: 25px 0;
+    border-radius: 20px 20px 0 0;
+    overflow: hidden;
+    box-shadow: 4px 8px 32px rgba(0, 0, 0, 0.15);
+}
+.content-table thead tr{
+    background-color: #003399;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: bold;
+}
+.content-table th,
+.content-table td{
+    padding: 12px 15px;
+}
+.content-table tbody tr{
+    border-bottom: 1px solid #DDDDDD;
+}
+.content-table tbody tr:nth-of-type(even){
+    background-color: #f3f3f3;
+}
+.content-table tbody tr:last-of-type{
+    border-bottom: 2px solid #003399;
+}
+.excess_quantity{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* ------------ ORDER PAGE ------------ */
+
+.new-order{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+#frm-orderForm{
+    width: 900px;
+}
+
+/* ------------ ORDER LIST PAGE ------------ */
+.order-list-container{
+    height: 650px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+/* ------------ EDIT ORDER PAGE ------------ */
+.edit-order-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.edit-order-container input{
+    width: 100px;
+    text-align: center;
+}
+/* ------------ EXCESS PAGE ------------ */
+.excess-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 35px;
+}
+/* ------------ SEARCH PAGE ------------ */
+.search-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

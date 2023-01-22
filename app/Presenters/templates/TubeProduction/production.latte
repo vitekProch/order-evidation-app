@@ -1,0 +1,30 @@
+{block content}
+<div class="order-list-container">
+    <h1 class="text-center title_margin" n:block=title>Vyrobené zakázky</h1>
+    <div style="width: 900px" n:foreach="$flashes as $flash" n:class="alert, 'alert-' . $flash->type">{$flash->message}</div>
+    {include "../Tables/productionTable.latte" $tube_production, $position}
+</div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {if !$paginator->isFirst()}
+            <li class="page-item page-item-deactivate"><a class="page-link" n:href="production, 1">První</a></li>
+            <li class="page-item"><a class="page-link page-item-deactivate" n:href="production, $paginator->page-1">Předchozí</a></li>
+        {/if}
+
+        <li class="page-item"><h6 class="page-link">Stránka {$paginator->getPage()} z {$paginator->getPageCount()}</h6> </li>
+
+        {if !$paginator->isLast()}
+            <li class="page-item"><a class="page-link" n:href="production, $paginator->getPage() + 1">Další</a></li>
+            <li class="page-item"><a class="page-link" n:href="production, $paginator->getPageCount()">Poslední</a></li>
+        {/if}
+    </ul>
+</nav>
+
+{define modal}
+    {include "../Tables/modalTable.latte" $modal_data}
+{/define}
+
+{define modalFooter}
+    <button type="button" class="btn btn-secondary mt-2" n:href="Homepage:" data-bs-dismiss="modal">Zavřít</button>
+{/define}

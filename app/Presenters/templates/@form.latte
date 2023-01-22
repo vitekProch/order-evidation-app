@@ -1,0 +1,32 @@
+<form n:name=$name>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <table class="m-auto table_background">
+                    <div n:foreach="$flashes as $flash" n:class="alert, 'alert-' . $flash->type">{$flash->message}</div>
+                    <div class=error n:ifcontent n:foreach="$form->ownErrors as $error">{$error}</div>
+                    <tr n:foreach="$form->controls as $name => $input"
+                            n:if="!$input->getOption(rendered) && $input->getOption(type) !== hidden">
+
+                        <th class="text-right pr-2">{label $input /}</th>
+
+                        <td>
+                            {if $input->getOption(type) in [text, select, textarea]}
+                                {input $input class => form-control, autofocus: true}
+                            {elseif $input->getOption(type) === button}
+                                {input $input class => [btn, btn-outline-dark]}
+                            {elseif $input->getOption(type) === checkbox}
+                                <div class="checkbox">{input $input}</div>
+                            {elseif $input->getOption(type) === radio}
+                                <div class="radio">{input $input}</div>
+                            {else}
+                                {input $input}
+                            {/if}
+                            <span class=help-block n:ifcontent>{$input->error ?: $input->getOption(description)}</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>
